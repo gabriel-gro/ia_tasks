@@ -7,11 +7,11 @@ window.onload = function() {
     setInterval(function(){
         if(modoAutomatico){
             idQuarto = parseInt((Math.random() * 42 * 10) % 5)
-            if(idQuarto !== 4){
+            if(idQuarto !== 4 && idQuarto !== quartoAtual){
                 sujaQuarto(idQuarto)
             }
         }
-    }, 3000)
+    }, 2000)
 
     setInterval(function(){
         quartos[0].tempo++
@@ -21,34 +21,15 @@ window.onload = function() {
     },1000)
 
     setInterval(function(){
-        proximoQuarto = escolheQuarto()
-        console.log(quartoAnterior, quartoAtual, proximoQuarto)
-        vaiParaOQuatro(proximoQuarto)
-        if (!quartoEstaLimpo(quartoAtual)){
-            limpaQuarto(quartoAtual)
-        }
+        escolheQuarto().then((resultado) => {
+            proximoQuarto = resultado
+            console.log(quartoAnterior, quartoAtual, proximoQuarto)
+            vaiParaOQuatro(proximoQuarto)
+            if (!quartos[quartoAtual].estaLimpo){
+                limpaQuarto(quartoAtual)
+            }
+        })
     },3000)
-    
-
-    // quartoAnterior = quartoAtual
-    // quartoAtual = idMaiorTempo
-}
-
-// function fluxoRobo(){
-//     proximoQuarto = escolheQuarto()
-//     console.log(proximoQuarto, quartoAnterior, quartoAtual)
-//     quartoAnterior = quartoAtual
-//     quartoAtual = proximoQuarto
-//     vaiParaOQuatro(quartoAtual)
-//     if (!quartoEstaLimpo(quartoAtual)){
-//         limpaQuarto(quartoAtual)
-//         console.log("quarto sujo foi limpado" + quartoAtual)
-//     }
-//     // console.log(proximoQuarto, quartoAnterior, quartoAtual)
-// }
-
-function quartoEstaLimpo(idQuarto){
-    return quartos[idQuarto].estaLimpo
 }
 
 function vaiParaOQuatro(idQuarto){
@@ -73,31 +54,45 @@ function vaiParaOQuatro(idQuarto){
 
 function toggleModoAutomatico(){
     modoAutomatico = !modoAutomatico;
+    if (modoAutomatico){
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo automático = ON"
+    } else {
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo automático = OFF"
+    }
+    
 }
 
 function sujaQuarto(id){
-    quartos[id] = false
+    quartos[id].estaLimpo = false
     quarto = document.getElementById("quarto"+id)
     quarto.style.backgroundColor = "red"
+    document.getElementById("legendaQuarto"+id).innerHTML = "Sujo!"
 }
 
 function limpaQuarto(id){
-    quartos[id] = true
-    quartos[id].tempo = 0
     quarto = document.getElementById("quarto"+id)
-    quarto.style.backgroundColor = "white"
-    console.log("limpou o quarto "+id)
+    document.getElementById("legendaQuarto"+id).innerHTML = "Limpando..."
+    setTimeout(function(){
+        quarto.style.backgroundColor = "white"
+        document.getElementById("legendaQuarto"+id).innerHTML = "Limpo"
+        quartos[id].estaLimpo = true
+        quartos[id].tempo = 0
+    }, 2000)
+
 }
 
 function escolheQuarto(){
-    idMaiorTempo = (quartoAtual + quartoAnterior)%4
-    // maiorTempo = 0
-    // quarto.tempo > maiorTempo && 
-    quartos.forEach((quarto, index) => {
-        if (index !== quartoAtual && index !== quartoAnterior ){
+    return new Promise((resolve,reject) => {
+        idMaiorTempo = 0
+        maiorTempo = 0
+        console.log(quartos)
+        quartos.forEach((quarto, index) => {
+        if (quarto.tempo > maiorTempo && index !== quartoAtual && index !== quartoAnterior ){
             idMaiorTempo = index
-            // maiorTempo = quarto.tempo
+            maiorTempo = quarto.tempo
         }
-    });
-    return idMaiorTempo
+        });
+        resolve(idMaiorTempo)
+    })
+    
 }

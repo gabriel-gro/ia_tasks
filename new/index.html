@@ -7,16 +7,16 @@
 <body style="text-align: center; padding: 0; margin: 0">
 	<header style="background-color: aliceblue; padding:0;margin:0">
 		<h1>Aspirador de pó inteligente</h1>
-		<button onclick="toggleModoAutomatico()">Modo automático</button>
+		<button id="toggleModoAutomatico" onclick="toggleModoAutomatico()">Modo automático = OFF</button>
 		<div id="btns">
-			<button onclick="sujaQuarto(0)"id="LEFT">Quarto 0</button>
-			<button onclick="sujaQuarto(1)"id="DOWN">Quarto 1</button>
-			<button onclick="sujaQuarto(2)"id="UP">Quarto 2</button>
-			<button onclick="sujaQuarto(3)"id="RIGHT">Quarto 3</button>
+			<button onclick="sujaQuarto(0)">Sujar Quarto 0</button>
+			<button onclick="sujaQuarto(1)">Sujar Quarto 1</button>
+			<button onclick="sujaQuarto(2)">Sujar Quarto 2</button>
+			<button onclick="sujaQuarto(3)">Sujar Quarto 3</button>
 		</div>
 	</header>	
 	<div id="container" class="container">
-		<div id="world" class="world">
+		<div id="mundo" class="mundo">
 			<div id="robo" class="robot" style="top: 3px; left: -20px">
 				<div style="height: 0px;">
 					<p id="action" style="font-size: 16px; word-wrap: break-word;">
@@ -24,31 +24,43 @@
 					</p>
 				</div>
 			</div>
-			<div id="rooms">
-				<div id="quarto0" onclick="limpaQuarto(0)" class="room" style="top: 5px; left: -20px">Quarto 0</div>
-				<div id="quarto1" onclick="limpaQuarto(1)" class="room" style="top: -17px; left: 270px">Quarto 1</div>
-				<div id="quarto3" onclick="limpaQuarto(3)" class="room" style="top: 211px; left: -20px;">Quarto 3</div>
-				<div id="quarto2" onclick="limpaQuarto(2)" class="room" style="top: 189px; left: 270px;">Quarto 2</div>
+			<div id="quartos">
+				<div id="quarto0" class="quarto" style="top: 5px; left: -20px">
+					Quarto 0
+					<p id="legendaQuarto0">Limpo</p>
+				</div>
+				<div id="quarto1" class="quarto" style="top: -17px; left: 270px">
+					Quarto 1
+					<p id="legendaQuarto1">Limpo</p>
+				</div>
+				<div id="quarto3" class="quarto" style="top: 211px; left: -20px;">
+					Quarto 3
+					<p id="legendaQuarto3">Limpo</p>
+				</div>
+				<div id="quarto2" class="quarto" style="top: 189px; left: 270px;">
+					Quarto 2
+					<p id="legendaQuarto2">Limpo</p>
+				</div>
 			</div>
 		</div>
 	</main>
 
 	<style>
+		#toggleModoAutomatico{
+			margin-bottom: 10px
+		}
         .container{
             margin-top: 50px;
         }
-		.room {
+		.quarto {
 			width: 98px;
 			height: 20px;
 			position: relative;
 			border: 1px solid black;
 		}
-		#world {
-			/* position: absolute; */
-			/* background-color: black; */
+		#mundo {
 			margin: auto;
 			width: 350px;
-			/* background-color: aqua; */
 		}
 		.robot {
 			width: 100px;
@@ -58,12 +70,9 @@
 			animation-duration: 2s;
 			animation-fill-mode: both;
 		}
-		#rooms{
+		#quartos{
 			margin: auto;
 			text-align: center;
-			/* background-color: green;
-			width: 200px;
-			height: 200px; */
 		}
 	</style>
 	<script
