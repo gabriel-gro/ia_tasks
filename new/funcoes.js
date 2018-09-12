@@ -26,7 +26,6 @@ window.onload = function() {
         escolheQuarto(quartoAtual, quartoAnterior).then((resultado) => {
             proximoQuarto = resultado
             vaiParaOQuatro(quartoAtual, proximoQuarto).then((quartoAntAtual) => {
-                console.log(quartoAntAtual)
                 quartoAnterior = quartoAntAtual[0]
                 quartoAtual = quartoAntAtual[1]
                 if (!quartos[quartoAtual].estaLimpo){
