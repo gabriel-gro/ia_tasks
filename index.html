@@ -5,16 +5,20 @@
 	<title>Aspirador de pó inteligente</title>
 </head>
 <body style="text-align: center; padding: 0; margin: 0">
-	<header style="background-color: aliceblue; padding:0;margin:0">
+	<header>
 		<h1>Aspirador de pó inteligente</h1>
-		<button id="toggleModoAutomatico" onclick="toggleModoAutomatico()">Modo automático = OFF</button>
+		<button id="toggleModoAutomatico" onclick="toggleModoAutomatico()">Modo sugeira = OFF</button>
 		<div id="btns">
-			<button onclick="sujaQuarto(0)">Sujar Quarto 0</button>
+			<p> Ou clique no quarto para sujar! </p>
+			<!-- <button onclick="sujaQuarto(0)">Sujar Quarto 0</button>
 			<button onclick="sujaQuarto(1)">Sujar Quarto 1</button>
 			<button onclick="sujaQuarto(2)">Sujar Quarto 2</button>
-			<button onclick="sujaQuarto(3)">Sujar Quarto 3</button>
+			<button onclick="sujaQuarto(3)">Sujar Quarto 3</button> -->
 		</div>
 	</header>	
+	<div id="infoCalculo">
+		<p> Escolha do aspirador: escolhe o quato com maior tempo que foi limpo, exceto o quarto em que esta e o ultimo visitado </p>
+	</div>
 	<div id="container" class="container">
 		<div id="mundo" class="mundo">
 			<div id="robo" class="robot" style="top: 3px; left: -20px">
@@ -25,30 +29,34 @@
 				</div>
 			</div>
 			<div id="quartos">
-				<div id="quarto0" class="quarto" style="top: 5px; left: -20px">
+				<div id="quarto0" class="quarto notSelect" onclick="sujaQuarto(0)" style="top: 5px; left: -20px">
 					Quarto 0
 					<p id="legendaQuarto0">Limpo</p>
+					<p id="tempoQuarto0">Tempo: 0</p>
 				</div>
-				<div id="quarto1" class="quarto" style="top: -17px; left: 270px">
+				<div id="quarto1" class="quarto notSelect" onclick="sujaQuarto(1)" style="top: -17px; left: 270px">
 					Quarto 1
 					<p id="legendaQuarto1">Limpo</p>
+					<p id="tempoQuarto1">Tempo: 0</p>
 				</div>
-				<div id="quarto3" class="quarto" style="top: 211px; left: -20px;">
+				<div id="quarto3" class="quarto notSelect" onclick="sujaQuarto(3)" style="top: 211px; left: -20px;">
 					Quarto 3
 					<p id="legendaQuarto3">Limpo</p>
+					<p id="tempoQuarto3">Tempo: 0</p>
 				</div>
-				<div id="quarto2" class="quarto" style="top: 189px; left: 270px;">
+				<div id="quarto2" class="quarto notSelect" onclick="sujaQuarto(2)" style="top: 189px; left: 270px;">
 					Quarto 2
 					<p id="legendaQuarto2">Limpo</p>
+					<p id="tempoQuarto2">Tempo: 0</p>
 				</div>
 			</div>
 		</div>
 	</main>
-
 	<style>
 		#toggleModoAutomatico{
-			margin-bottom: 10px
+			margin-bottom: 5px
 		}
+
         .container{
             margin-top: 50px;
         }
@@ -56,7 +64,10 @@
 			width: 98px;
 			height: 20px;
 			position: relative;
+			border-radius: 5px;
+			box-shadow: -1px 2px #000;
 			border: 1px solid black;
+			cursor: pointer;
 		}
 		#mundo {
 			margin: auto;
@@ -65,7 +76,9 @@
 		.robot {
 			width: 100px;
 			height: 84px;
-			background: green;
+			background-image: url("aspire.png");
+			background-size: 96px 87px;
+			/*background-color: white;*/
 			position: relative;
 			animation-duration: 2s;
 			animation-fill-mode: both;
@@ -73,6 +86,42 @@
 		#quartos{
 			margin: auto;
 			text-align: center;
+		}
+		header{
+			background-color: #1d5404;
+			padding: 5px;
+			margin: 0;
+		}
+		header h1{
+			color: white;
+			padding: 10px;
+			text-shadow: -2px 2px #111;
+		}
+		header p{
+			margin: 2px;
+			text-shadow: -2px 2px #111;
+			padding-bottom: 5px;
+			color: white;
+		}
+
+		button{
+			box-shadow: -1px 1px #222;
+			cursor: pointer;
+		}
+
+
+		.notSelect {
+		    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+		    -webkit-user-select: none;    /* Chrome, Safari 3 */
+		    -khtml-user-select: none;     /* Safari 2 */
+		    -moz-user-select: none;       /* Firefox */
+		    -ms-user-select: none;        /* IE10+ */
+		    user-select: none;            /* Possível implementação no futuro */
+		    /* cursor: default; */
+		}
+
+		#infoCalculo{
+			top: 500px;
 		}
 	</style>
 	<script

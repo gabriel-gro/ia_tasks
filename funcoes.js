@@ -13,13 +13,17 @@ window.onload = function() {
                 sujaQuarto(idQuarto)
             }
         }
-    }, 2000)
+    }, 3000)
 
     setInterval(function(){
         quartos[0].tempo++
+        document.getElementById("tempoQuarto0").innerHTML = "Tempo: " + quartos[0].tempo
         quartos[1].tempo++
+        document.getElementById("tempoQuarto1").innerHTML = "Tempo: " + quartos[1].tempo
         quartos[2].tempo++
+        document.getElementById("tempoQuarto2").innerHTML = "Tempo: " + quartos[2].tempo
         quartos[3].tempo++
+        document.getElementById("tempoQuarto3").innerHTML = "Tempo: " + quartos[3].tempo
     },1000)
 
     setInterval(function(){
@@ -28,12 +32,15 @@ window.onload = function() {
             vaiParaOQuatro(quartoAtual, proximoQuarto).then((quartoAntAtual) => {
                 quartoAnterior = quartoAntAtual[0]
                 quartoAtual = quartoAntAtual[1]
-                if (!quartos[quartoAtual].estaLimpo){
-                    limpaQuarto(quartoAtual)
-                }
+                setTimeout(function() {
+                    if (!quartos[quartoAtual].estaLimpo){
+                        limpaQuarto(quartoAtual)
+                    }
+                }, 2000);
+                
             })
         })
-    },3000)
+    },4000)
 }
 
 function vaiParaOQuatro(quartoAtual, proximoQuarto){
@@ -63,9 +70,9 @@ function vaiParaOQuatro(quartoAtual, proximoQuarto){
 function toggleModoAutomatico(){
     modoAutomatico = !modoAutomatico;
     if (modoAutomatico){
-        document.getElementById("toggleModoAutomatico").innerHTML = "Modo automático = ON"
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sugeira = ON"
     } else {
-        document.getElementById("toggleModoAutomatico").innerHTML = "Modo automático = OFF"
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sugeira = OFF"
     }
     
 }
@@ -73,7 +80,7 @@ function toggleModoAutomatico(){
 function sujaQuarto(id){
     quartos[id].estaLimpo = false
     quarto = document.getElementById("quarto"+id)
-    quarto.style.backgroundColor = "red"
+    quarto.style.backgroundColor = "gray"
     document.getElementById("legendaQuarto"+id).innerHTML = "Sujo!"
 }
 
