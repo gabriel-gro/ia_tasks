@@ -70,9 +70,9 @@ function vaiParaOQuatro(quartoAtual, proximoQuarto){
 function toggleModoAutomatico(){
     modoAutomatico = !modoAutomatico;
     if (modoAutomatico){
-        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sugeira = ON"
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sujeira = ON"
     } else {
-        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sugeira = OFF"
+        document.getElementById("toggleModoAutomatico").innerHTML = "Modo sujeira = OFF"
     }
     
 }
